@@ -18,13 +18,9 @@ public class Settings {
     public Settings() {
     }
 
-    public void set_settings_id(int settings_id) {
-        this._settings_id = settings_id;
-    }
+    public void set_settings_id(int settings_id) { this._settings_id = settings_id; }
 
-    public int get_settings_id() {
-        return this._settings_id;
-    }
+    public int get_settings_id() { return this._settings_id; }
 
     public void set_settings_name(String settings_name) { this._settings_name = settings_name; }
 

@@ -58,14 +58,6 @@ public class SettingsRepo {
         return settings_s;
     }
 
-
-    public static void delete(String query) {
-        SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
-        db.delete(Settings.TABLE, query,null);
-        DatabaseManager.getInstance().closeDatabase();
-    }
-
-
     public static void update(String settings_name, String settings_val) {
 
         SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
