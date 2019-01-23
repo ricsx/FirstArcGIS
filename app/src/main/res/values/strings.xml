@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">FirstArcGIS</string>
+    <string name="chooseZone">Choose a zone</string>
+    <string name="Database">Database</string>
+    <string name="Setup">Setup</string>
+    <string name="title_activity_setup">Setup</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_data_base">DataBase</string>
+    <string name="defaultPlace">Default place:</string>
+    <string name="extentInOut">Extent of In/Out</string>
+    <string name="ext2">ext2</string>
+    <string name="ext4">ext4</string>
+    <string name="ext1">ext1</string>
+    <string name="btn_out_map">btn Out Map</string>
+    <string name="btn_in_map">btn In Map</string>
+    <string name="NameOPlace">Name o place</string>
+    <string name="latitude">Latitude</string>
+    <string name="name">Name</string>
+    <string name="longitude">Longitude</string>
+    <string name="save">Save</string>
+    <string name="Edit">Edit</string>
+    <string name="Delete">Delete</string>
+    <string name="RUSure">Are you sure?</string>
+</resources>
