@@ -2,7 +2,6 @@ package uk.co.ridseardbeag.firstarcgis.DB.Model;
 
 
 public class Zones {
-    public static final String TAG = Zones.class.getSimpleName();
     public static final String TABLE = "Zones";
 
     public static final String zonesID = "zone_id";

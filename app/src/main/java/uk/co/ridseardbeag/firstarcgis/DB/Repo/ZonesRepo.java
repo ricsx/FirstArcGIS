@@ -35,28 +35,11 @@ public class ZonesRepo {
         values.put(Zones.zonesLat, zones.get_zone_lat());
         values.put(Zones.zonesLong, zones.get_zone_long());
 
-        zoneId=(int) db.insert(zones.TABLE, null, values);
-        DatabaseManager.getInstance().closeDatabase();
-
-        return zoneId;
-    }
-
-
-    public static int insertEmptyZone() {
-        int zoneId;
-        SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
-        ContentValues values = new ContentValues();
-        values.put(Zones.zonesID, 0);
-        values.put(Zones.zonesName, "-");
-        values.put(Zones.zonesLat, "0");
-        values.put(Zones.zonesLong, "0");
-
         zoneId=(int) db.insert(Zones.TABLE, null, values);
         DatabaseManager.getInstance().closeDatabase();
 
         return zoneId;
     }
-
 
     public static List<Zones> getZones(String selectQuery){
         Zones zones;
@@ -81,19 +64,4 @@ public class ZonesRepo {
         return zonesArrayList;
     }
 
-
-    public static void update(int zone_id, String zone_name, double zone_lat, double zone_long) {
-
-        SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
-        ContentValues values = new ContentValues();
-
-        values.put(Zones.zonesName, zone_name);
-        values.put(Zones.zonesLat, zone_lat);
-        values.put(Zones.zonesLong, zone_long);
-
-        db.update(Zones.TABLE, values, Zones.zonesID + "= ?",
-                new String[] { String.valueOf(zone_id) });
-        db.close();
-        DatabaseManager.getInstance().closeDatabase();
-    }
 }

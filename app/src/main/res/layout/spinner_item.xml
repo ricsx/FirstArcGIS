@@ -8,4 +8,4 @@
     android:paddingStart="8dp"
     android:paddingEnd="16dp"
     android:textColor="@color/text_color"
-    android:textSize="16dp" />
+    android:textSize="16sp" />

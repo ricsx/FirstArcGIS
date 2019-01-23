@@ -1,6 +1,7 @@
 package uk.co.ridseardbeag.firstarcgis.Activities;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -9,9 +10,14 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 
+import com.esri.arcgisruntime.geometry.Point;
+import com.esri.arcgisruntime.geometry.SpatialReference;
 import com.esri.arcgisruntime.mapping.ArcGISMap;
 import com.esri.arcgisruntime.mapping.Basemap;
+import com.esri.arcgisruntime.mapping.view.Graphic;
+import com.esri.arcgisruntime.mapping.view.GraphicsOverlay;
 import com.esri.arcgisruntime.mapping.view.MapView;
+import com.esri.arcgisruntime.symbology.SimpleMarkerSymbol;
 
 import java.util.List;
 
@@ -24,7 +30,6 @@ import uk.co.ridseardbeag.firstarcgis.R;
 
 import static uk.co.ridseardbeag.firstarcgis.Common.Common.settingTest;
 
-
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private MapView _mMapView;
@@ -32,7 +37,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     double latit, longit, latVal=0, longVal=0;
     Spinner _spZones;
     private Intent newActivity;
-
+    private final SpatialReference wgs84 = SpatialReference.create(4326);
+    Graphic buoyGraphic1;
+    GraphicsOverlay graphicsOverlay;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +54,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Button _btnSetup = findViewById(R.id.btnSetup);
         _mMapView = findViewById(R.id.mapView);
         _spZones = findViewById(R.id.spZones);
-
 
         _btnInMap.setOnClickListener(this);
         _btnOutMap.setOnClickListener(this);
@@ -111,7 +117,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
                 if(latVal==0){ latVal = deflat; }
                 if(longVal==0){ longVal = deflong; }
-                showMap(11, latVal, longVal);
+                showMap(13, latVal, longVal);
             }
 
             @Override
@@ -119,9 +125,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             }
         });
-
-
-
     }
 
 
@@ -148,24 +151,47 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         zones.set_zone_long(-3.1618323999999802);
         ZonesRepo.insert(zones);
         zones.set_zone_name("Edinburgh Castle");
-        zones.set_zone_lat(55.9440825);
-        zones.set_zone_long(-3.1618323999999802);
+        zones.set_zone_lat(55.9485947);
+        zones.set_zone_long(-3.1999134999999796);
         ZonesRepo.insert(zones);
         zones.set_zone_name("Bellshill");
         zones.set_zone_lat(55.81676100000001);
         zones.set_zone_long(-4.026535999999965);
+        ZonesRepo.insert(zones);
+        zones.set_zone_name("Granton Mill West");
+        zones.set_zone_lat(55.9746609);
+        zones.set_zone_long(-3.2534401000000344);
         ZonesRepo.insert(zones);
     }
 
 
     private void showMap(int lev, double lat, double longi) {
         if (_mMapView != null) {
-            Basemap.Type basemapType = Basemap.Type.STREETS_VECTOR;
+            if(buoyGraphic1!=null){ graphicsOverlay.getGraphics().remove(buoyGraphic1); }
+            Basemap.Type basemapType = Basemap.Type.IMAGERY;
             level = lev; latit = lat; longit = longi;
             ArcGISMap map = new ArcGISMap(basemapType, latit, longit, level);
             _mMapView.setMap(map);
+            graphicsOverlay = addGraphicsOverlay(_mMapView);
+            addBuoyPoints(graphicsOverlay, latit, longit);
         }
     }
+
+    private GraphicsOverlay addGraphicsOverlay(MapView mapView) {
+        GraphicsOverlay graphicsOverlay = new GraphicsOverlay();
+        mapView.getGraphicsOverlays().add(graphicsOverlay);
+        return graphicsOverlay;
+    }
+
+    private void addBuoyPoints(GraphicsOverlay graphicOverlay, double latit, double longit) {
+
+        Point buoy1Loc = new Point(longit, latit, wgs84);
+        SimpleMarkerSymbol buoyMarker = new SimpleMarkerSymbol(SimpleMarkerSymbol.Style.CIRCLE, Color.RED, 10);
+        buoyGraphic1 = new Graphic(buoy1Loc, buoyMarker);
+        graphicOverlay.getGraphics().add(buoyGraphic1);
+
+    }
+
 
     @Override
     protected void onPause() {

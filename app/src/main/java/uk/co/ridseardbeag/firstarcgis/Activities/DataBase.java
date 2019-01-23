@@ -46,8 +46,8 @@ public class DataBase extends AppCompatActivity implements View.OnLongClickListe
         _results = findViewById(R.id.results);
         Button _savePlace = findViewById(R.id.btnSavePLace);
 
-        _edLat.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
-        _edLong.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
+        _edLat.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_NUMBER_FLAG_SIGNED);
+        _edLong.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_NUMBER_FLAG_SIGNED);
 
         _savePlace.setOnLongClickListener(this);
 
